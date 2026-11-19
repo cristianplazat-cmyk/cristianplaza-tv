@@ -79,6 +79,16 @@ La guía completa está en [`scripts/LEEME.md`](scripts/LEEME.md).
 
 `limpiar-xiaomi` quita el rastreo y la publicidad preinstalados de Xiaomi y Google, y libera espacio. Antes de quitar nada te muestra la lista y te pide confirmación, y es reversible.
 
+### 🤖 Opcional: que una IA lo haga por ti (Claude Code o Codex)
+
+La skill [`preparar-tv`](skill/) hace todo el proceso con tu agente de IA:
+
+- limpieza básica (rastreo y publicidad) o **profunda** (apps basura del fabricante y de Google), siempre con confirmación y reversible;
+- instalación del launcher como inicio;
+- verificación después de reiniciar.
+
+Funciona en Xiaomi y TCL, y con cautela en otras marcas. Las instrucciones están en [`skill/README.md`](skill/README.md).
+
 ### ↩️ Deshacer
 
 `deshacer.bat` / `./deshacer.sh <IP>` deja el TV como estaba:
