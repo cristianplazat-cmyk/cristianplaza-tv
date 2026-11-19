@@ -1,5 +1,10 @@
 # Cambios
 
+## 1.0.3
+
+- Nueva opción en el menú ⚙: "Logos de las apps" permite usar los banners originales a color de cada app en vez de los logos en blanco.
+- `instalar.sh` también encuentra el APK cuando se ejecuta desde el repositorio (carpeta `dist/`).
+
 ## 1.0.2
 
 - El nombre del menú ⚙ ("Cristian Plaza TV") ahora se puede cambiar por otro (con el teclado del TV) u ocultar.

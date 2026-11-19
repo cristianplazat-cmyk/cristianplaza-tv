@@ -5,7 +5,7 @@ Launcher minimalista para **Android TV / Google TV**: tarjetas de vidrio oscuro 
 ## Qué incluye
 
 - **Inicio limpio:** cuadrícula de 4 columnas. Al bajar, la hora y el menú se ocultan.
-- **Logos en blanco:** se generan en tu propio TV a partir del logo de cada app que tengas instalada.
+- **Logos en blanco u originales:** los logos en blanco se generan en tu propio TV a partir de cada app instalada. En ⚙ → *Logos de las apps* puedes cambiar a los banners originales a color.
 - **Fondos:** 18 fondos tecnológicos originales que van rotando. Puedes agregar los tuyos (ver abajo).
 - **Entradas HDMI:** detecta tus entradas y muestra el nombre del equipo conectado cuando el TV lo conoce.
 - **Organiza tus apps:** mantén presionado **OK** sobre una app para **moverla**, **ocultarla**, **desinstalarla** o **asignarla a un botón del control**.
@@ -52,7 +52,7 @@ Copia imágenes (JPG o PNG, idealmente de 1920×1080) a `Android/data/com.cristi
 `adb push mi-fondo.jpg /sdcard/Android/data/com.cristianplaza.tv/files/fondos/`
 
 **Una app aparece con su nombre en vez del logo.**
-Algunas apps no traen un banner que se pueda convertir a blanco. En ese caso se muestra el nombre, con el mismo estilo.
+Algunas apps no traen un banner que se pueda convertir a blanco. En ese caso se muestra el nombre, con el mismo estilo. También puedes usar los logos originales a color: ⚙ → *Logos de las apps*.
 
 **Los botones del control dejaron de funcionar.**
 Presiona Inicio una vez, porque el launcher reactiva el servicio solo. Si no funciona, actívalo a mano en *Ajustes → Accesibilidad → Botones del control*.

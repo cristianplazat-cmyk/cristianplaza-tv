@@ -18,7 +18,8 @@ adb_ connect "$ANDROID_SERIAL" >/dev/null
 for i in $(seq 1 30); do [ "$(adb_ get-state 2>/dev/null)" = "device" ] && break; sleep 2; adb_ connect "$ANDROID_SERIAL" >/dev/null 2>&1; done
 [ "$(adb_ get-state 2>/dev/null)" = "device" ] || { echo "❌ No se pudo conectar. Revisa que la depuración por red esté activa."; exit 1; }
 
-APK=$(ls CristianPlazaTV-*.apk | sort | tail -1)
+APK=$(ls CristianPlazaTV-*.apk ../dist/CristianPlazaTV-*.apk 2>/dev/null | sort -V | tail -1)
+[ -n "$APK" ] || { echo "❌ No encuentro CristianPlazaTV-*.apk junto a este script."; exit 1; }
 echo "→ Instalando $APK"
 adb_ install -r "$APK" | tail -1
 

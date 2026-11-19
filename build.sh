@@ -3,8 +3,8 @@
 # Uso:  ./build.sh
 set -e
 cd "${0:A:h}"
-VERSION=1.0.2
-CODIGO=3
+VERSION=1.0.3
+CODIGO=4
 
 export JAVA_HOME=${JAVA_HOME:-$(brew --prefix openjdk@17)/libexec/openjdk.jdk/Contents/Home}
 export PATH=$JAVA_HOME/bin:$PATH

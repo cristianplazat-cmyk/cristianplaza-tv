@@ -40,6 +40,19 @@ Al usar Cristian Plaza TV como inicio: **deshabilitar (no quitar)** `com.google.
 `com.xiaomi.mitv.updateservice`.
 Códigos del control Xiaomi: Netflix 193 (lo maneja el sistema), YouTube 190, ⭐ 313, Prime Video 194, Xiaomi TV 352, Live TV 351.
 
+## Xiaomi TV Box S (Google TV, Amlogic) — probado
+
+Misma lista que los TV Xiaomi (no trae `scenemode`), más:
+
+| Nivel | Paquete | Qué es |
+|---|---|---|
+| Profunda (usuario) | `com.overdevs.at4k` | AT4K Launcher: suele venir como inicio y con servicio de accesibilidad; quitarlo **antes** de instalar Cristian Plaza TV |
+
+**Ocultar en el launcher, no quitar:** `com.mitv.tvhome.atv` (PatchWall), `com.xiaomi.mitv.mediaexplorer`,
+`com.xiaomi.mitv.smartshare` (Miracast).
+**No tocar:** `mitv.service`, `com.mi.bluetooth` (control remoto), `com.xiaomi.tvqs.*`, `com.xiaomi.mitv.updateservice`,
+`com.droidlogic*`, `com.dolby.android.audio.service`.
+
 ## TCL (Google TV, Amlogic) — probado
 
 | Nivel | Paquete | Qué es |
@@ -59,7 +72,7 @@ Códigos del control Xiaomi: Netflix 193 (lo maneja el sistema), YouTube 190, �
 | Profunda | `com.tcl.smartalexa` | Alexa |
 | Profunda | `com.tcl.magiconnectfree` | MagiConnect |
 | Profunda | `com.tcl.miracast`, `com.tcl.ui_mediaCenter` | Miracast, Media Center |
-| Profunda (usuario) | `com.tcl.browser`, `com.android.mgstv`, `com.overdevs.at4k` | Navegador, Mango TV, AT4K Launcher |
+| Profunda (usuario) | `com.tcl.browser`, `com.overdevs.at4k` | Navegador, AT4K Launcher |
 
 **No tocar:** `com.tcl.tv`, `com.tcl.tvinput`, `com.tcl.dashboard`, `com.tcl.gamebar`, `com.tcl.systemserver`,
 `com.tcl.globalkeyoverlay`, `com.amlogic.airplay`, `com.tcl.airplay2`, `com.tcl.hearaid`, `com.tcl.useragreement`.

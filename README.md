@@ -6,7 +6,7 @@
 
 **Un launcher minimalista para Android TV y Google TV, con estilo de vidrio oscuro, sin anuncios y sin recomendaciones.**
 
-[![Versión](https://img.shields.io/badge/versión-1.0.2-ff3b30)](../../releases/latest)
+[![Versión](https://img.shields.io/badge/versión-1.0.3-ff3b30)](../../releases/latest)
 [![Android TV](https://img.shields.io/badge/Android%20TV-9%2B-3ddc84?logo=android&logoColor=white)](#requisitos)
 [![Licencia: MIT](https://img.shields.io/badge/licencia-MIT-blue)](LICENSE)
 
@@ -46,7 +46,7 @@
 | | |
 |---|---|
 | 🪟 **Estilo vidrio** | Tarjetas oscuras translúcidas con reflejo, borde de luz y brillo al seleccionarlas. |
-| ⚪ **Logos en blanco** | Cada app se muestra con su logo en blanco. Se genera en tu propio TV a partir de las apps que tienes instaladas, así que funciona con cualquier app. |
+| ⚪ **Logos en blanco u originales** | Cada app se muestra con su logo en blanco, generado en tu propio TV a partir de las apps que tienes instaladas. Si prefieres los colores de cada marca, en ⚙ → *Logos de las apps* cambias a los banners originales. |
 | 🌌 **Fondos que cambian** | 18 fondos tecnológicos originales que rotan cada 5 minutos con un fundido suave. Puedes agregar los tuyos. |
 | 🔌 **Entradas HDMI** | Un menú con tus HDMI, que muestra el nombre del equipo conectado cuando el TV lo conoce. |
 | ✋ **Organiza a tu gusto** | Mantén presionado **OK** sobre una app para moverla, ocultarla, desinstalarla o asignarla a un botón. |
@@ -103,7 +103,7 @@ Funciona en Xiaomi y TCL, y con cautela en otras marcas. Las instrucciones está
 |---|---|
 | Abrir una app | Selecciónala y presiona **OK** |
 | Mover / ocultar / desinstalar / asignar a un botón | **Mantén presionado OK** sobre la app |
-| Menú (Ajustes del TV, botones del control, apps ocultas, nombre del menú, logo) | Botón **⚙** arriba a la derecha, o la tecla **Menú** del control |
+| Menú (Ajustes del TV, botones del control, apps ocultas, nombre del menú, logo, logos de las apps) | Botón **⚙** arriba a la derecha, o la tecla **Menú** del control |
 | Cambiar de entrada HDMI | Tarjeta **Entradas**, o el botón **Entradas** del control |
 | Agregar fondos propios | Copia imágenes a `Android/data/com.cristianplaza.tv/files/fondos` |
 
@@ -118,7 +118,7 @@ No requiere root ni desbloquear nada. Todo lo que hacen los scripts se puede des
 <details>
 <summary><b>Una app aparece con su nombre en vez del logo</b></summary>
 
-Algunas apps no traen un banner que se pueda convertir a blanco. En ese caso se muestra su nombre, con el mismo estilo.
+Algunas apps no traen un banner que se pueda convertir a blanco. En ese caso se muestra su nombre, con el mismo estilo. Si prefieres ver el logo original a color de todas las apps, usa ⚙ → *Logos de las apps*.
 </details>
 
 <details>

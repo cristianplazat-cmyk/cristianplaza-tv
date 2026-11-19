@@ -5,7 +5,8 @@ description: Prepara un Android TV / Google TV (Xiaomi, TCL u otra marca) por AD
 
 # Preparar un Android TV / Google TV
 
-Procedimiento probado en un **Xiaomi TV (MediaTek, Android 14)** y una **TCL (Amlogic, Android 12)**, ambos con Google TV.
+Procedimiento probado en un **Xiaomi TV (MediaTek, Android 14)**, una **Xiaomi TV Box S (Amlogic, Android 14)** y una
+**TCL (Amlogic, Android 12)**, todos con Google TV.
 Todo se hace por ADB en la red local. **No requiere root**, no desbloquea nada y **todo es reversible**.
 Listas de apps por marca: [listas.md](listas.md). Launcher: https://github.com/cristianplazat-cmyk/cristianplaza-tv
 
@@ -21,7 +22,9 @@ Listas de apps por marca: [listas.md](listas.md). Launcher: https://github.com/c
    En la duda, **no se quita**: se oculta en el launcher.
 3. No proponer root, desbloqueo de bootloader, cambiar la animación de arranque ni flashear nada (riesgo de brick).
 4. No hacer factory reset. No actualizar el firmware sin preguntar.
-5. Si el usuario está viendo algo, no lanzar apps ni teclas sin avisar.
+5. Si el usuario está viendo algo, no lanzar apps ni teclas sin avisar. Antes de enviar teclas, revisar qué hay en
+   pantalla (`dumpsys activity activities | grep -m1 topResumedActivity`) y si algo se reproduce
+   (`dumpsys media_session | grep "state=PlaybackState"`, buscar `PLAYING`).
 6. Guardar respaldo antes de quitar (paso 2) y generar el script para restaurar.
 
 ## 1. Conectar
@@ -110,7 +113,12 @@ adb shell input keyevent KEYCODE_HOME
 En Android TV clásico (sin Google TV) el inicio es `com.google.android.tvlauncher`. Si el fabricante tiene su propio
 inicio (p. ej. PatchWall de Xiaomi), no quitarlo: ocultarlo en el launcher.
 Si hay **otro launcher de terceros con servicio de accesibilidad** (p. ej. AT4K), compite por el botón Inicio:
-proponer quitarlo.
+proponer quitarlo, y hacerlo **antes** de instalar Cristian Plaza TV. Después, revisar que
+`enabled_accessibility_services` no conserve su servicio (si quedó, dejar solo el de Cristian Plaza TV).
+
+Logos: por defecto en blanco. Si el usuario prefiere los colores de cada marca, se cambia en el TV con
+⚙ → *Logos de las apps* (banners originales a color; desde 1.0.3). Es una preferencia interna de la app:
+no se puede fijar por ADB, solo desde ese menú (con el control o con `input keyevent` DPAD).
 
 Botones del control: el usuario los asigna en el TV (⚙ → Botones del control: presiona el botón y elige la app).
 Para conocer el código de un botón: que lo presione y leer `adb logcat -d | grep -E "keyCode|GlobalKey" | tail`.

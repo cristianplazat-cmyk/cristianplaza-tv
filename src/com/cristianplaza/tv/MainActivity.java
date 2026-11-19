@@ -662,7 +662,12 @@ public class MainActivity extends Activity {
         View previo = t.findViewWithTag("contenido");
         if (previo != null) t.removeView(previo);
 
-        Bitmap logo = ENTRADAS.equals(a.paquete) ? logoEntradas()
+        if (logosOriginales() && !ENTRADAS.equals(a.paquete) && (a.banner != null || a.icono != null)) {
+            t.addView(contenidoOriginal(a));
+            return;
+        }
+
+        Bitmap logo =ENTRADAS.equals(a.paquete) ? logoEntradas()
                 : a.paquete.toLowerCase().contains("airplay") ? logoAirplay() : logoDe(a);
         View v;
         if (logo != null) {
@@ -689,6 +694,38 @@ public class MainActivity extends Activity {
         }
         v.setTag("contenido");
         t.addView(v);
+    }
+
+    /** true = tarjetas con el banner original de cada app (a color) en vez del logo blanco. */
+    private boolean logosOriginales() {
+        return prefs.getBoolean("logos_originales", false);
+    }
+
+    /** Banner original de la app llenando la tarjeta; si no tiene banner, su ícono centrado. */
+    private View contenidoOriginal(App a) {
+        ImageView img = new ImageView(this);
+        FrameLayout.LayoutParams lp = lleno();
+        if (a.banner != null) {
+            Drawable d = a.banner.getConstantState() != null
+                    ? a.banner.getConstantState().newDrawable().mutate() : a.banner;
+            img.setImageDrawable(d);
+            img.setScaleType(ImageView.ScaleType.CENTER_CROP);
+            final int radio = px(17);
+            img.setOutlineProvider(new ViewOutlineProvider() {
+                @Override public void getOutline(View v, Outline o) {
+                    o.setRoundRect(0, 0, v.getWidth(), v.getHeight(), radio);
+                }
+            });
+            img.setClipToOutline(true);
+            lp.setMargins(px(3), px(3), px(3), px(3));
+        } else {
+            img.setImageDrawable(a.icono);
+            img.setScaleType(ImageView.ScaleType.FIT_CENTER);
+            lp.setMargins(px(30), px(24), px(30), px(24));
+        }
+        img.setLayoutParams(lp);
+        img.setTag("contenido");
+        return img;
     }
 
     /** Ícono de AirPlay blanco: pantalla con un triángulo en la base. */
@@ -1041,6 +1078,13 @@ public class MainActivity extends Activity {
             boolean nuevo = !prefs.getBoolean("firma", true);
             prefs.edit().putBoolean("firma", nuevo).apply();
             firma.setVisibility(nuevo ? View.VISIBLE : View.GONE);
+            abrirMenu();
+        }));
+        boolean originales = logosOriginales();
+        f.add(fila("Logos de las apps", originales ? "Originales a color · presiona para usarlos en blanco"
+                : "En blanco · presiona para usar los originales a color", () -> {
+            prefs.edit().putBoolean("logos_originales", !logosOriginales()).apply();
+            cargarApps(null);
             abrirMenu();
         }));
         f.add(fila("Restablecer orden de las apps", null, () -> {
