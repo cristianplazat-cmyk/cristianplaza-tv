@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="servicio_nombre">Botones del control · Cristian Plaza TV</string>
+    <string name="servicio_descripcion">Permite asignar apps a los botones del control remoto (por ejemplo, que el botón de una app que no usas abra otra). Solo captura los botones que tú asignes; no lee el contenido de la pantalla.</string>
+</resources>
