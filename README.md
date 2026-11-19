@@ -6,7 +6,7 @@
 
 **Un launcher minimalista para Android TV y Google TV, con estilo de vidrio oscuro, sin anuncios y sin recomendaciones.**
 
-[![Versión](https://img.shields.io/badge/versión-1.0.1-ff3b30)](../../releases/latest)
+[![Versión](https://img.shields.io/badge/versión-1.0.2-ff3b30)](../../releases/latest)
 [![Android TV](https://img.shields.io/badge/Android%20TV-9%2B-3ddc84?logo=android&logoColor=white)](#requisitos)
 [![Licencia: MIT](https://img.shields.io/badge/licencia-MIT-blue)](LICENSE)
 
@@ -93,7 +93,7 @@ La guía completa está en [`scripts/LEEME.md`](scripts/LEEME.md).
 |---|---|
 | Abrir una app | Selecciónala y presiona **OK** |
 | Mover / ocultar / desinstalar / asignar a un botón | **Mantén presionado OK** sobre la app |
-| Menú (Ajustes del TV, botones del control, apps ocultas, logo) | Botón **⚙** arriba a la derecha, o la tecla **Menú** del control |
+| Menú (Ajustes del TV, botones del control, apps ocultas, nombre del menú, logo) | Botón **⚙** arriba a la derecha, o la tecla **Menú** del control |
 | Cambiar de entrada HDMI | Tarjeta **Entradas**, o el botón **Entradas** del control |
 | Agregar fondos propios | Copia imágenes a `Android/data/com.cristianplaza.tv/files/fondos` |
 

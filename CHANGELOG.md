@@ -1,5 +1,10 @@
 # Cambios
 
+## 1.0.2
+
+- El nombre del menú ⚙ ("Cristian Plaza TV") ahora se puede cambiar por otro (con el teclado del TV) u ocultar.
+- La opción del logo de la esquina se llama ahora "Logo de la esquina".
+
 ## 1.0.1
 
 - La app AirPlay ahora muestra su ícono en blanco (pantalla con triángulo) en vez del nombre.

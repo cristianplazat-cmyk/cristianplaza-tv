@@ -981,7 +981,7 @@ public class MainActivity extends Activity {
         LinearLayout.LayoutParams lpT = new LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         lpT.bottomMargin = px(nota == null ? 24 : 6);
-        caja.addView(titulo(tituloTexto), lpT);
+        if (tituloTexto != null && !tituloTexto.isEmpty()) caja.addView(titulo(tituloTexto), lpT);
         if (nota != null) {
             TextView n = new TextView(this);
             n.setText(nota);
@@ -1035,7 +1035,9 @@ public class MainActivity extends Activity {
             BotonesControl.prefs(this).edit().putBoolean(BotonesControl.PREF_INICIO, nuevo).apply();
             abrirMenu();
         }));
-        f.add(fila("Logo de Cristian Plaza", conFirma ? "Visible · presiona para ocultarlo" : "Oculto · presiona para mostrarlo", () -> {
+        String t = tituloMenu();
+        f.add(fila("Nombre en el menú", t.isEmpty() ? "Oculto" : "\"" + t + "\" · cambiar u ocultar", this::menuNombre));
+        f.add(fila("Logo de la esquina", conFirma ? "Visible · presiona para ocultarlo" : "Oculto · presiona para mostrarlo", () -> {
             boolean nuevo = !prefs.getBoolean("firma", true);
             prefs.edit().putBoolean("firma", nuevo).apply();
             firma.setVisibility(nuevo ? View.VISIBLE : View.GONE);
@@ -1047,7 +1049,95 @@ public class MainActivity extends Activity {
             cargarApps(null);
         }));
         f.add(fila("Agregar mis propios fondos", "Copia imágenes a Android/data/" + getPackageName() + "/files/fondos", () -> {}));
-        abrirLista("Cristian Plaza TV", null, f);
+        abrirLista(tituloMenu(), null, f);
+    }
+
+    // ---------------------------------------------------------------- nombre del menú
+    private static final String NOMBRE_POR_DEFECTO = "Cristian Plaza TV";
+
+    /** Título del menú ⚙: por defecto "Cristian Plaza TV", vacío = oculto, o el que escriba la persona. */
+    private String tituloMenu() {
+        return prefs.getString("titulo_menu", NOMBRE_POR_DEFECTO);
+    }
+
+    private void menuNombre() {
+        List<FrameLayout> f = new ArrayList<>();
+        f.add(fila("Escribir otro nombre", "Por ejemplo, \"TV del living\" o el nombre de tu familia", this::escribirNombre));
+        f.add(fila("Ocultar el nombre", "El menú se muestra sin título", () -> {
+            prefs.edit().putString("titulo_menu", "").apply();
+            abrirMenu();
+        }));
+        f.add(fila("Usar \"" + NOMBRE_POR_DEFECTO + "\"", null, () -> {
+            prefs.edit().remove("titulo_menu").apply();
+            abrirMenu();
+        }));
+        abrirLista("Nombre en el menú", null, f);
+    }
+
+    /** Campo de texto con el teclado del TV para escribir el nombre. */
+    private void escribirNombre() {
+        LinearLayout caja = new LinearLayout(this);
+        caja.setOrientation(LinearLayout.VERTICAL);
+        caja.setGravity(Gravity.CENTER_HORIZONTAL);
+        LinearLayout.LayoutParams envolver = new LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        envolver.bottomMargin = px(20);
+        caja.addView(titulo("Escribe el nombre"), envolver);
+
+        final android.widget.EditText campo = new android.widget.EditText(this);
+        campo.setSingleLine(true);
+        campo.setText(tituloMenu());
+        campo.setSelection(campo.getText().length());
+        campo.setTextColor(Color.WHITE);
+        campo.setHintTextColor(0x80FFFFFF);
+        campo.setHint("Nombre del menú");
+        campo.setTextSize(20);
+        campo.setGravity(Gravity.CENTER);
+        campo.setImeOptions(android.view.inputmethod.EditorInfo.IME_ACTION_DONE);
+        campo.setFilters(new android.text.InputFilter[]{new android.text.InputFilter.LengthFilter(30)});
+        GradientDrawable fondo = new GradientDrawable();
+        fondo.setCornerRadius(px(14));
+        fondo.setColor(0x8C1A1D26);
+        fondo.setStroke(Math.max(1, px(2)), 0xB3FFFFFF);
+        campo.setBackground(fondo);
+        campo.setPadding(px(18), px(12), px(18), px(12));
+        caja.addView(campo, new LinearLayout.LayoutParams(px(480), ViewGroup.LayoutParams.WRAP_CONTENT));
+
+        TextView n = new TextView(this);
+        n.setText("Escribe con el teclado y presiona Listo / OK.\n\nPara salir presiona Back ←");
+        n.setTextColor(0xB3FFFFFF);
+        n.setTextSize(13);
+        n.setGravity(Gravity.CENTER);
+        n.setPadding(0, px(16), 0, 0);
+        caja.addView(n, new LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+
+        campo.setOnEditorActionListener((v, accion, ev) -> {
+            String txt = campo.getText().toString().trim();
+            prefs.edit().putString("titulo_menu", txt).apply();
+            ocultarTeclado(campo);
+            abrirMenu();
+            return true;
+        });
+
+        // Que el teclado quede abajo sin mover la pantalla, y el campo arriba del centro.
+        FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT, Gravity.TOP | Gravity.CENTER_HORIZONTAL);
+        lp.topMargin = px(80);
+        abrirOverlay(caja, campo);
+        caja.setLayoutParams(lp);
+        campo.postDelayed(() -> {
+            campo.requestFocus();
+            android.view.inputmethod.InputMethodManager imm = (android.view.inputmethod.InputMethodManager)
+                    getSystemService(Context.INPUT_METHOD_SERVICE);
+            if (imm != null) imm.showSoftInput(campo, android.view.inputmethod.InputMethodManager.SHOW_IMPLICIT);
+        }, 250);
+    }
+
+    private void ocultarTeclado(View v) {
+        android.view.inputmethod.InputMethodManager imm = (android.view.inputmethod.InputMethodManager)
+                getSystemService(Context.INPUT_METHOD_SERVICE);
+        if (imm != null) imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
     }
 
     private void menuOcultas() {
