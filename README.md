@@ -6,7 +6,7 @@
 
 **Un launcher minimalista para Android TV y Google TV, con estilo de vidrio oscuro, sin anuncios y sin recomendaciones.**
 
-[![Versión](https://img.shields.io/badge/versión-1.0.0-ff3b30)](../../releases/latest)
+[![Versión](https://img.shields.io/badge/versión-1.0.1-ff3b30)](../../releases/latest)
 [![Android TV](https://img.shields.io/badge/Android%20TV-9%2B-3ddc84?logo=android&logoColor=white)](#requisitos)
 [![Licencia: MIT](https://img.shields.io/badge/licencia-MIT-blue)](LICENSE)
 

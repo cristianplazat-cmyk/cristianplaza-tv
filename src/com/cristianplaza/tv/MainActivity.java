@@ -662,7 +662,8 @@ public class MainActivity extends Activity {
         View previo = t.findViewWithTag("contenido");
         if (previo != null) t.removeView(previo);
 
-        Bitmap logo = ENTRADAS.equals(a.paquete) ? logoEntradas() : logoDe(a);
+        Bitmap logo = ENTRADAS.equals(a.paquete) ? logoEntradas()
+                : a.paquete.toLowerCase().contains("airplay") ? logoAirplay() : logoDe(a);
         View v;
         if (logo != null) {
             ImageView img = new ImageView(this);
@@ -688,6 +689,68 @@ public class MainActivity extends Activity {
         }
         v.setTag("contenido");
         t.addView(v);
+    }
+
+    /** Ícono de AirPlay blanco: pantalla con un triángulo en la base. */
+    private Bitmap iconoAirplay(int alto) {
+        int wi = Math.round(alto * 1.25f);
+        Bitmap bmp = Bitmap.createBitmap(wi, alto, Bitmap.Config.ARGB_8888);
+        Canvas c = new Canvas(bmp);
+        Paint p = new Paint(Paint.ANTI_ALIAS_FLAG);
+        p.setColor(Color.WHITE);
+        p.setStyle(Paint.Style.STROKE);
+        float g = alto * 0.11f; // grosor del marco
+        p.setStrokeWidth(g);
+        float r = alto * 0.12f;
+        // Marco de la pantalla (sin la parte central de abajo, donde va el triángulo).
+        android.graphics.Path marco = new android.graphics.Path();
+        float x0 = g / 2, y0 = g / 2, x1 = wi - g / 2, y1 = alto * 0.74f;
+        float hueco = wi * 0.26f, cx = wi / 2f;
+        marco.moveTo(cx - hueco, y1);
+        marco.lineTo(x0 + r, y1);
+        marco.quadTo(x0, y1, x0, y1 - r);
+        marco.lineTo(x0, y0 + r);
+        marco.quadTo(x0, y0, x0 + r, y0);
+        marco.lineTo(x1 - r, y0);
+        marco.quadTo(x1, y0, x1, y0 + r);
+        marco.lineTo(x1, y1 - r);
+        marco.quadTo(x1, y1, x1 - r, y1);
+        marco.lineTo(cx + hueco, y1);
+        c.drawPath(marco, p);
+        // Triángulo sólido.
+        p.setStyle(Paint.Style.FILL);
+        android.graphics.Path tri = new android.graphics.Path();
+        tri.moveTo(cx, alto * 0.50f);
+        tri.lineTo(cx + wi * 0.22f, alto);
+        tri.lineTo(cx - wi * 0.22f, alto);
+        tri.close();
+        c.drawPath(tri, p);
+        return bmp;
+    }
+
+    /** Ícono + palabra, en blanco (mismo estilo que "ENTRADAS"). */
+    private Bitmap glifoConTexto(Bitmap icono, String txt, int alto) {
+        Paint p = new Paint(Paint.ANTI_ALIAS_FLAG);
+        p.setColor(Color.WHITE);
+        p.setTextSize(alto * 1.05f);
+        p.setTypeface(Typeface.create("sans-serif", Typeface.NORMAL));
+        p.setLetterSpacing(0.04f);
+        int ancho = icono.getWidth() + px(14) + Math.round(p.measureText(txt));
+        Bitmap b = Bitmap.createBitmap(ancho, Math.max(alto, icono.getHeight()), Bitmap.Config.ARGB_8888);
+        Canvas c = new Canvas(b);
+        c.drawBitmap(icono, 0, (b.getHeight() - icono.getHeight()) / 2f, null);
+        Paint.FontMetrics fm = p.getFontMetrics();
+        c.drawText(txt, icono.getWidth() + px(14), b.getHeight() / 2f - (fm.ascent + fm.descent) / 2f, p);
+        return b;
+    }
+
+    private Bitmap logoAirplay() {
+        String clave = "__airplay__";
+        if (cacheLogos.containsKey(clave)) return cacheLogos.get(clave);
+        int alto = px(26);
+        Bitmap b = glifoConTexto(iconoAirplay(Math.round(alto * 1.15f)), "AirPlay", alto);
+        cacheLogos.put(clave, b);
+        return b;
     }
 
     private Bitmap logoEntradas() {

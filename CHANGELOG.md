@@ -1,5 +1,9 @@
 # Cambios
 
+## 1.0.1
+
+- La app AirPlay ahora muestra su ícono en blanco (pantalla con triángulo) en vez del nombre.
+
 ## 1.0.0 — primera versión
 
 - Launcher con cuadrícula de 4 columnas y tarjetas de vidrio oscuro.
